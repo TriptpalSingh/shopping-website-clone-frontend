@@ -1,0 +1,20 @@
+.predictions--outer{
+    position: absolute;
+    top: 130px;
+    width: 400px;
+    max-height: 400px;
+    z-index: 100;
+    border: solid 1px black;
+    background-color: white;
+    border-radius: 5px;
+    overflow: auto;
+}
+
+.predictions-item{
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.predictions-item:hover{
+    cursor: pointer;
+}

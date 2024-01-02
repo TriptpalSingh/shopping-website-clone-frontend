@@ -1,0 +1,97 @@
+
+
+.nav-outer{
+    width: 100%;
+    height: 80px;
+    background-color: var(--my-blue);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav-logo{
+    margin: 0 15px;
+    width: 70px;
+    height: 70px;
+    background-image: url('../../../public/logo192.png');
+    background-size: cover;
+    cursor: pointer;
+}
+
+.nav-link{
+    height: 100%;
+    /* width: 120px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* color: white; */ 
+    /* text-decoration: underline; */
+    margin: 0 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.1s ease-out;
+    /* border: solid 1px white; */
+}
+
+.nav-link:hover{
+    /* color: #63e2fd; */
+    font-size: 1.57rem;
+}
+
+.nav-register{
+    margin-left: auto;
+    /* border: solid 1px white; */
+    height: 80%;
+    width: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-btn, .signup-btn, .logout-btn{
+    margin: 0 10px;
+    padding: 8px;
+    border: solid 1px #63e2fd;
+    border-radius: 5px;
+    color: #63e2fd;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.08s linear;
+}
+
+.login-btn:hover, .signup-btn:hover{
+    padding: 10px;
+    color: #ffffff;
+    border-color: white;
+}
+
+.logout-btn:hover, .addItem-btn:hover{
+    color: #ffffff;
+    border-color: white;
+}
+
+.profile-div{
+    width: 70px;
+    height: 70px;
+    border: solid 1px white;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.addItem-btn{
+    margin: 0 10px;
+    padding: 8px;
+    border: solid 1px #63e2fd;
+    border-radius: 5px;
+    color: #63e2fd;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.08s linear;
+    width: 80px;
+}
+
+/* @media only screen and (max-width: 750px) {
+    
+} */
