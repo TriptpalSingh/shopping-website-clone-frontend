@@ -1,9 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import CartContextImport from '../../context/cart/cartContext'
 
 import './product.css'
 import { useNavigate } from 'react-router-dom'
+
+import Loader from '../loader/Loader'
 
 function Product(props) {
 
@@ -13,6 +15,7 @@ function Product(props) {
 
     const navigate = useNavigate();
     const cartContext = useContext(CartContextImport);
+    const [toggleLoader, setToggleLoader] = useState(false);
 
     const key = props.id;
     const name = props.name;
@@ -21,6 +24,7 @@ function Product(props) {
     const price = props.price;
 
     const handleCart = (e)=>{
+        setToggleLoader(true);
         e.preventDefault();
         const userInfo = localStorage.getItem("user");
         const data = JSON.parse(userInfo);
@@ -33,6 +37,7 @@ function Product(props) {
                 cartContext.setCart(data.cart);
             }
             localStorage.setItem("user", JSON.stringify(data));
+            setToggleLoader(false);
         })
 
     }
@@ -51,7 +56,7 @@ function Product(props) {
                 <div className='product--price-div'>
                     <span className='product--price-span'>Price: ₹ {props.price}</span>
                 </div>
-                <div className='product--cart-btn'><button className='btn' onClick={handleCart}>ADD TO CART</button></div>
+                <div className='product--cart-btn'><button className='btn' onClick={handleCart}>{toggleLoader ? <Loader color={"#63e2fd"}/> : "ADD TO CART"}</button></div>
             </div>
         </div>
     </>

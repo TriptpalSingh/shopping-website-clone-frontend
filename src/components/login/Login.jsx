@@ -1,17 +1,20 @@
 
-import React, {useRef, useContext} from 'react'
+import React, {useRef, useContext, useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 // import loginContextImport from '../../context/login/loginContext'
 import './login.css'
 import axios from 'axios';
+import Loader from '../loader/Loader';
 
 function Login() {
     const userRef = useRef();
     const passRef = useRef();
     const navigate = useNavigate();
+    const [toggleLoader, setToggleLoader] = useState(false);
     // const loginContext = useContext(loginContextImport);
 
     const handleLogin = (e)=>{
+        setToggleLoader(true);
         const username = userRef.current.value;
         const password = passRef.current.value;
 
@@ -34,9 +37,11 @@ function Login() {
             else{
                 alert(res.data.message);
             }
+            setToggleLoader(false);
         }).catch((e)=>{
             console.log(e.message);
         })
+        
     }
 
 
@@ -58,6 +63,10 @@ function Login() {
                 <div className='login-submit-btn-div'>
                     <div className='login-submit-btn' onClick={handleLogin}>Log in</div>
                 </div>
+                {
+                    toggleLoader ? <Loader color={"white"}/> : null
+                }
+                {/* <Loader color={"white"}/> */}
             </div>
         </div>
     </>

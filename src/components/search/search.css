@@ -58,3 +58,24 @@
 .search--input:focus{
     outline: none;
 }
+
+.search--crossBtn{
+    height: 100%;
+    width: 25px;
+    font-size: 20px;
+    color: var(--my-blue);
+    border: solid 1px #9d9da9;
+    border-left: none;
+    position: absolute;
+    left: 290px;
+    color: #9d9da9;
+    background-color: white;
+    /* box-shadow: -5px 0px 5px white; */
+    z-index: 100;
+    /* right: 10px; */
+    font-weight: 500;
+}
+
+.search--crossBtn:hover{
+    cursor: pointer;
+}

@@ -74,6 +74,14 @@ function Search(props) {
     }
   }
 
+  const handleCross = (e)=>{
+    e.preventDefault();
+    if(searchRef.current != null){
+      searchRef.current.value = "";
+      handleSearchClick(e);
+    }
+  }
+
   const handlePriceFilter = (e)=>{
     let fromValue = fromRef.current.value;
     let toValue = toRef.current.value;
@@ -117,7 +125,7 @@ function Search(props) {
   return (
     <div className='search--outer'>
         <div className='search--inner'>
-            <input ref={searchRef} onChange={handleChange} type='text' className='search--input'  placeholder='Search'  name='search'></input>
+            <input ref={searchRef} onChange={handleChange} type='text' className='search--input'  placeholder='Search'  name='search'></input><button className='search--crossBtn' onClick={handleCross}>x</button>
             <button className='btn search--btn' onClick={handleSearchClick}>Search</button>
         </div>
         <div className='search--filter-outer'>

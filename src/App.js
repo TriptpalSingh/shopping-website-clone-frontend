@@ -7,6 +7,7 @@ import Product from './components/product/Product';
 import CartItem from './components/cart/CartItem';
 import Cart from './components/cart/Cart';
 import CartState from './context/cart/cartState';
+import Loader from './components/loader/Loader';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route exact path='/login' element={<Login/>}></Route>
             <Route exact path='/addItem' element={<AddItem/>}></Route>
             <Route exact path='/cart' element={<Cart/>}></Route>
+            <Route exact path='/loader' element={<Loader/>}></Route>
           </Routes>
         </CartState>
       </BrowserRouter>

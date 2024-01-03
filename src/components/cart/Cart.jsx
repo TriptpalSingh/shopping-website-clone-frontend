@@ -6,11 +6,14 @@ import axios from 'axios';
 import CartItem from './CartItem';
 import { useNavigate } from 'react-router-dom';
 import CartContextImport from '../../context/cart/cartContext';
+import Loader from '../loader/Loader';
 
 function Cart() {
 
     const [list, setList] = useState([]);
     const [subTotal, setSubTotal] = useState(0);
+    const [toggleLoader, setToggleLoader] = useState(false);
+    const [toggleClearCartLoader, setToggleClearCartLoader] = useState(false);
 
     const userInfo = localStorage.getItem("user");
     const data = JSON.parse(userInfo);
@@ -22,6 +25,7 @@ function Cart() {
         if(userInfo == null){
             navigate('/login')
         }
+        setToggleLoader(true);
         let totalPrice = 0;
         axios.post("https://shopping-website-clone-backend.vercel.app/getCartItems", {token}).then((res)=>{
             setList(res.data);
@@ -30,6 +34,7 @@ function Cart() {
                 totalPrice += item.quantity*item.price;
             })
             setSubTotal(totalPrice);
+            setToggleLoader(false);
         })
 
         
@@ -38,12 +43,14 @@ function Cart() {
     },[])
 
     const handleClearCart = (e)=>{
+        setToggleClearCartLoader(true);
         // e.preventdefault();
         axios.post("https://shopping-website-clone-backend.vercel.app/clearCart", {token}).then((res)=>{
             data.cart = 0;
             cartContext.setCart(data.cart);
             localStorage.setItem("user", JSON.stringify(data));
             setList([]);
+            setToggleClearCartLoader(false);
         })
     }
 
@@ -51,13 +58,16 @@ function Cart() {
   return (
     <>
         <Navbar/>
+        {
+            toggleLoader ? <Loader color={"#1c437e"}/> : null
+        }
         <div className='cartItem--outer'>
             {
                 list.map((item)=> <CartItem key={item.key} id={item.key} name={item.name} desc={item.desc} url={item.url} quantity={item.quantity} price={item.price}/>)
             }
         </div>
         {
-            cartContext.cart != 0 ? (
+            cartContext.cart != 0 && toggleLoader == false ? (
                 <div className='cart--subTotal'>
                     <div className='cart--subTotal-inner'>Final-Price: ₹{subTotal}</div>
                 </div>
@@ -65,7 +75,7 @@ function Cart() {
             null
         }
         
-        <div className='clearcartbtn'><button className='btn' onClick={handleClearCart}>CLEAR CART</button></div>
+        <div className='clearcartbtn'><button className='btn' onClick={handleClearCart}>{toggleClearCartLoader ? <Loader color={"#63e2fd"}/> : "CLEAR CART"}</button></div>
     </>
   )
 }
