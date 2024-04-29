@@ -21,13 +21,21 @@ function Cart() {
     const navigate = useNavigate();
     const cartContext = useContext(CartContextImport);
 
+    // const authAxios = axios.create({
+    //     baseURL: 'http://localhost:5000',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': `Bearer ${token}`
+    //     }
+    // })
+
     useEffect(()=>{
         if(userInfo == null){
             navigate('/login')
         }
         setToggleLoader(true);
         let totalPrice = 0;
-        axios.post("https://shopping-website-clone-backend.vercel.app/getCartItems", {token}).then((res)=>{
+        axios.post("http://localhost:5000/getCartItems", {}, { headers : {Authorization : `Bearer ${token}`}}).then((res)=>{
             setList(res.data);
             res.data.map((item)=>{
                 // console.log(item.quantity + " " + item.price)

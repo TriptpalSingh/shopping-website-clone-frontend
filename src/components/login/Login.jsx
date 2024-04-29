@@ -23,12 +23,11 @@ function Login() {
             return;
         }
 
-        axios.post("https://shopping-website-clone-backend.vercel.app/login", {username, password}).then((res)=>{
+        axios.post("https://shopping-website-clone-backend.vercel.app/auth/login", {username, password}).then((res)=>{
             if(res.data.status == "ok"){
                 const userInfo = {
                     cart:res.data.cart,
                     name:res.data.name,
-                    username,
                     token: res.data.token
                 }
                 localStorage.setItem('user', JSON.stringify(userInfo));
@@ -59,6 +58,9 @@ function Login() {
                         <legend align="center" className='login-input-legend'>Password</legend>
                         <input type='password' ref={passRef} placeholder='Enter Password'></input>
                     </fieldset>
+                </div>
+                <div className='login-signup-div'>
+                    <div className='login-signup-ques'>Don't have an account? <Link to={"/signup"}><span className='login-signup-span'>Sign up</span></Link></div>
                 </div>
                 <div className='login-submit-btn-div'>
                     <div className='login-submit-btn' onClick={handleLogin}>Log in</div>
