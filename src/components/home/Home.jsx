@@ -19,10 +19,10 @@ function Home() {
     useEffect(()=>{
 
         const userInfo = localStorage.getItem("user");
-        if(userInfo == null){
-            navigate('/login');
-            return;
-        }
+        // if(userInfo == null){
+        //     navigate('/login');
+        //     return;
+        // }
         setToggleLoader(true);
 
         axios.get("https://dummyjson.com/products").then((res)=>{
@@ -37,8 +37,8 @@ function Home() {
     
   return (
     <>
-        <Navbar/>
-        <Search list={list} setNewList={setNewList}/>
+        <Navbar list={list} setNewList={setNewList}/>
+        {/* <Search list={list} setNewList={setNewList}/> */}
         {
             toggleLoader ? <Loader color={"#1c437e"}/> : null
         }

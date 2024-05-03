@@ -53,7 +53,7 @@ function Cart() {
     const handleClearCart = (e)=>{
         setToggleClearCartLoader(true);
         // e.preventdefault();
-        axios.post("https://shopping-website-clone-backend.vercel.app/clearCart", {token}).then((res)=>{
+        axios.post("https://shopping-website-clone-backend.vercel.app/clearCart",{}, {"headers": {Authorization : `Bearer ${token}`}}).then((res)=>{
             data.cart = 0;
             cartContext.setCart(data.cart);
             localStorage.setItem("user", JSON.stringify(data));

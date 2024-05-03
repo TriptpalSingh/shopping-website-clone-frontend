@@ -29,7 +29,7 @@ function Product(props) {
         const userInfo = localStorage.getItem("user");
         const data = JSON.parse(userInfo);
         const token = data.token;
-        axios.post("http://localhost:5000/addToCart", {key, name, desc, url, price}, {"headers": {Authorization : `Bearer ${token}`}}).then((res)=>{
+        axios.post("https://shopping-website-clone-backend.vercel.app/addToCart", {key, name, desc, url, price}, {"headers": {Authorization : `Bearer ${token}`}}).then((res)=>{
             // console.log(data.cart)
             if(res.data.change === "new item added"){
                 // console.log("here");

@@ -1,40 +1,42 @@
-import React, {useContext, useEffect, useState} from 'react'
-import {NavLink, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from 'react'
+import { NavLink, useNavigate } from "react-router-dom";
 import CartContextImport from '../../context/cart/cartContext';
 import axios from 'axios';
 
 import './navbar.css'
+import Search from '../search/Search';
 
 
-const FullWidthOptions = ()=>{
+const FullWidthOptions = (props) => {
 
   const cartContext = useContext(CartContextImport);
 
-    const [name, setName] = useState("");
-    // const [cart, setCart] = useState(null);
+  // const [name, setName] = useState("");
+  // const [cart, setCart] = useState(null);
 
-  const navActive = ({isActive}) =>{
+  const navActive = ({ isActive }) => {
     return {
-        color : isActive ? "#63e2fd" : "#ffffff",
-        textDecoration: "none",
-      };
+      color: isActive ? "#63e2fd" : "#ffffff",
+      textDecoration: "none",
+    };
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     const userInfo = localStorage.getItem("user");
-    if(userInfo != null){
-        const data = JSON.parse(userInfo);
-        setName(data.name)
-        cartContext.setCart(data.cart);
+    if (userInfo != null) {
+      const data = JSON.parse(userInfo);
+      // setName(data.name)
+      cartContext.setCart(data.cart);
     }
-    else{
-        setName("signup or login.")
+    else {
+      // setName("signup or login.")
     }
-  },[localStorage.getItem("user")])
+  }, [localStorage.getItem("user")])
 
   return (
     <>
-      <NavLink style={navActive}>
+      <Search list={props.list} setNewList={props.setNewList} />
+      {/* <NavLink style={navActive}>
         <div className='nav-link'>{name}</div>
       </NavLink>
 
@@ -44,52 +46,55 @@ const FullWidthOptions = ()=>{
         <NavLink style={navActive} to={'/cart'}>
         <div className='nav-link'>Cart ({cartContext.cart})</div>
       </NavLink>
-      )}
+      )} */}
 
-      
+
 
     </>
   )
 }
 
-function Navbar() {
+function Navbar(props) {
 
   const navigate = useNavigate();
   const [url, setUrl] = useState("");
   const [name, setName] = useState(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     const userInfo = localStorage.getItem("user");
-    if(userInfo != null){
+    if (userInfo != null) {
+      const data = JSON.parse(userInfo);
+      if (userInfo != null) {
         const data = JSON.parse(userInfo);
-        if(userInfo != null){
-            const data = JSON.parse(userInfo);
-            setName(data.name)
-        }
+        setName(data.name)
+      }
+      else {
+        setName("login or signup")
+      }
     }
   })
 
 
-  const navActive = ({isActive}) =>{
+  const navActive = ({ isActive }) => {
     return {
-        color : isActive ? "#63e2fd" : "#ffffff",
-        textDecoration: "none",
-      };
+      color: isActive ? "#63e2fd" : "#ffffff",
+      textDecoration: "none",
+    };
   }
 
-  const handleLogout = (e)=>{
+  const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem('user');
     console.log("logged out");
     navigate("/login");
   }
 
-  const handleAddItem = (e)=>{
+  const handleAddItem = (e) => {
     e.preventDefault();
     navigate('/addItem')
   }
 
-  const handleclick = (e)=>{
+  const handleclick = (e) => {
     e.preventDefault();
     navigate('/')
   }
@@ -98,48 +103,34 @@ function Navbar() {
 
   return (
     <>
-        <div className='nav-outer'>
-          <div className='nav-logo' onClick={handleclick}></div>
+      <div className='nav-outer'>
+        <div className='nav-logo' onClick={handleclick}></div>
 
-          <FullWidthOptions/>
+        <FullWidthOptions list={props.list} setNewList={props.setNewList} />
 
-          
-          <div className='nav-register'>
-            {
-              localStorage.getItem("user") != null ? 
+
+        <div className='nav-register'>
+          {
+            localStorage.getItem("user") != null ?
               (
-                <>
-                {
-                    name=='admin' ? (
-                        <NavLink>
-                            <div className='addItem-btn' onClick={handleAddItem}>ADD ITEM</div>
-                        </NavLink>
-                    ) :
-                    (
-                        null
-                    )
-                }
-                
-
                 <NavLink>
-                <div className='logout-btn' onClick={handleLogout}>LOGOUT</div>
-              </NavLink>
-              </>
+                  <div className='logout-btn' onClick={handleLogout}>LOGOUT</div>
+                </NavLink>
               ) :
               (
                 <>
-                <NavLink to={'/login'}>
-                <div className='login-btn'>LOGIN</div>
-              </NavLink>
-              {/* <NavLink to={"/signup"}>
-                <div className='signup-btn'>SIGN UP</div>
-              </NavLink> */}
-              </>
+                  <NavLink to={'/login'} style={{ textDecoration: 'none' }}>
+                    <div className='login-btn'>LOGIN</div>
+                  </NavLink>
+                  <NavLink to={"/signup"} style={{ textDecoration: 'none' }}>
+                    <div className='signup-btn'>SIGN UP</div>
+                  </NavLink>
+                </>
               )
-            }
-            
-          </div>
+          }
+
         </div>
+      </div>
     </>
   )
 }

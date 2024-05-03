@@ -1,9 +1,9 @@
 .search--outer{
-    background-color: #60d9fa;
+    background: transparent;
     box-sizing: border-box;
-    width: 100%;
-    height: 65px;
-    border: solid 1px #60d9fa;
+    width: 500px;
+    height: 80px;
+    /* border: solid 1px #60d9fa; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -32,26 +32,33 @@
 
 .search--inner{
     position: absolute;
-    top: 90px;
+    top: 20px;
     width: 400px;
     z-index: 100;
     /* height: 150px; */
     /* border: solid 1px black; */
     display: flex;
     flex-direction: row;
-    
 
 }
 
 .search--input{
     padding: 10px;
-    width: 80%;
-    
+    flex-basis: 300px;
+    border: none;
 }
 
 .search--btn{
-    width: 20%;
-    margin: 0px;
+    margin-left: 5px;
+    border-radius: 0%;
+    border: none;
+    outline: none;
+    /* width: 80px; */
+    flex-basis: 70px;
+}
+
+.search--btn{
+    cursor: pointer;
 }
 
 
@@ -60,22 +67,26 @@
 }
 
 .search--crossBtn{
-    height: 100%;
-    width: 25px;
+    height: 40px;
     font-size: 20px;
     color: var(--my-blue);
-    border: solid 1px #9d9da9;
-    border-left: none;
-    position: absolute;
-    left: 290px;
+    border: none;
+    /* position: absolute;
+    left: 290px; */
     color: #9d9da9;
+    padding: 0 10px;
     background-color: white;
-    /* box-shadow: -5px 0px 5px white; */
     z-index: 100;
-    /* right: 10px; */
     font-weight: 500;
+    /* transition: 50ms linear; */
 }
 
 .search--crossBtn:hover{
     cursor: pointer;
+    background: linear-gradient(to left, #9d9da9 80%, white 100%);
+    color: white;
+}
+
+.search--crossBtn:after{
+    background-color: white;
 }

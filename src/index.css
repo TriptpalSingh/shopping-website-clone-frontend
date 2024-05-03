@@ -1,5 +1,9 @@
 :root{
   --my-blue:#1c437e;
+  --my-black:#000000;
+  --my-pink: #F72798;
+  --my-orange: #F57D1F;
+  --my-yellow: #EBF400;
 }
 
 body {

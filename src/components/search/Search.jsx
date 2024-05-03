@@ -18,6 +18,7 @@ function Search(props) {
 
 
   useEffect(() => {
+    console.log(props.list);
       document.addEventListener('mousedown', handleMouseDown, true);
       
     }, []);
@@ -34,8 +35,8 @@ function Search(props) {
 
 
   const handleSearchClick = (e)=>{
-    fromRef.current.value = 0;
-    toRef.current.value = 0;
+    // fromRef.current.value = 0;
+    // toRef.current.value = 0;
     setValue(searchRef.current.value);
     const tempList = props.list.filter((item)=>{
       if(item.title.toLowerCase().includes(searchRef.current.value.toLowerCase())){
@@ -66,7 +67,7 @@ function Search(props) {
     // console.log(tempList);
 
 
-    if(value){
+    if(value && tempList.length > 0){
       setTogglePredictions(true);
     }
     else{
@@ -82,56 +83,58 @@ function Search(props) {
     }
   }
 
-  const handlePriceFilter = (e)=>{
-    let fromValue = fromRef.current.value;
-    let toValue = toRef.current.value;
+  // const handlePriceFilter = (e)=>{
+  //   let fromValue = fromRef.current.value;
+  //   let toValue = toRef.current.value;
 
-    if(fromValue == ""){
-      fromValue = 0
-    }
+  //   if(fromValue == ""){
+  //     fromValue = 0
+  //   }
 
-    if(toValue == "" || toValue == 0){
-      toValue = Number.MAX_SAFE_INTEGER;
-    }
+  //   if(toValue == "" || toValue == 0){
+  //     toValue = Number.MAX_SAFE_INTEGER;
+  //   }
 
-    console.log(fromValue + " " + toValue)
+  //   console.log(fromValue + " " + toValue)
 
-    let tempList = [];
+  //   let tempList = [];
 
-    if(filteredList == null){
-      tempList = props.list.filter((item)=>{
-        if(item.price >= fromValue && item.price <= toValue){
-          return true;
-        }
-        else{
-          return false;
-        }
-      })
-    }
-    else{
-      tempList = filteredList.filter((item)=>{
-        if(item.price >= fromValue && item.price <= toValue){
-          return true;
-        }
-        else{
-          return false;
-        }
-      })
-    }
+  //   if(filteredList == null){
+  //     tempList = props.list.filter((item)=>{
+  //       if(item.price >= fromValue && item.price <= toValue){
+  //         return true;
+  //       }
+  //       else{
+  //         return false;
+  //       }
+  //     })
+  //   }
+  //   else{
+  //     tempList = filteredList.filter((item)=>{
+  //       if(item.price >= fromValue && item.price <= toValue){
+  //         return true;
+  //       }
+  //       else{
+  //         return false;
+  //       }
+  //     })
+  //   }
 
-    props.setNewList(tempList);
-  }
+  //   props.setNewList(tempList);
+  // }
 
   return (
     <div className='search--outer'>
         <div className='search--inner'>
-            <input ref={searchRef} onChange={handleChange} type='text' className='search--input'  placeholder='Search'  name='search'></input><button className='search--crossBtn' onClick={handleCross}>x</button>
-            <button className='btn search--btn' onClick={handleSearchClick}>Search</button>
+            <input ref={searchRef} onChange={handleChange} type='text' className='search--input'  placeholder='Search'  name='search'></input>
+            <button className='search--crossBtn' onClick={handleCross}>x</button>
+            <button className=' search--btn' onClick={handleSearchClick}>Search</button>
         </div>
-        <div className='search--filter-outer'>
+        {/* price filter part */}
+        {/* <div className='search--filter-outer'>
           Price From:<input ref={fromRef} className='filter--input' type='number' step={50} min={0} placeholder='0'></input> to:<input ref={toRef} className='filter--input' type='number' step={50} min={0} placeholder='0'></input>
           <button className='btn' onClick={handlePriceFilter}>Apply</button>
-        </div>
+        </div> */}
         {
           togglePredictions ? <Predictions list={predictionList}/> : null
         }
