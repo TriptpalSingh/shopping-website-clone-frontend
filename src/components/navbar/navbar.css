@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 }
 
 .nav-logo{
@@ -64,8 +65,8 @@
 }
 
 .logout-btn:hover, .addItem-btn:hover{
-    color: #ffffff;
-    border-color: white;
+    color: var(--my-yellow);
+    background-color: var(--my-black);
 }
 
 .profile-div{

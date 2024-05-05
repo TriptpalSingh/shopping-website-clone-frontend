@@ -113,7 +113,7 @@ function Navbar(props) {
           {
             localStorage.getItem("user") != null ?
               (
-                <NavLink>
+                <NavLink  style={{ textDecoration: 'none' }}>
                   <div className='logout-btn' onClick={handleLogout}>LOGOUT</div>
                 </NavLink>
               ) :
