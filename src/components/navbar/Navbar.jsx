@@ -86,7 +86,7 @@ function Navbar(props) {
     e.preventDefault();
     localStorage.removeItem('user');
     console.log("logged out");
-    navigate("/login");
+    navigate("/");
   }
 
   const handleAddItem = (e) => {
