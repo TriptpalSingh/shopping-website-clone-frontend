@@ -127,7 +127,7 @@ function Search(props) {
     <div className='search--outer'>
         <div className='search--inner'>
             <input ref={searchRef} onChange={handleChange} type='text' className='search--input'  placeholder='Search'  name='search'></input>
-            <button className='search--crossBtn' onClick={handleCross}>x</button>
+            {/* <button className='search--crossBtn' onClick={handleCross}>x</button> */}
             <button className=' search--btn' onClick={handleSearchClick}><img src='/assets/magnifying-glass.png' alt='icon' className='searchIcon'></img></button>
         </div>
         {/* price filter part */}
