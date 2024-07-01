@@ -11,8 +11,6 @@ const FullWidthOptions = (props) => {
 
   const cartContext = useContext(CartContextImport);
 
-  // const [name, setName] = useState("");
-  // const [cart, setCart] = useState(null);
 
   const navActive = ({ isActive }) => {
     return {
@@ -74,6 +72,10 @@ function Navbar(props) {
     }
   })
 
+  const [dropdownStyle, setDropdownStyle] = useState({
+    display: "none"
+  })
+
 
   const navActive = ({ isActive }) => {
     return {
@@ -86,7 +88,7 @@ function Navbar(props) {
     e.preventDefault();
     localStorage.removeItem('user');
     console.log("logged out");
-    navigate("/login");
+    navigate("/");
   }
 
   const handleAddItem = (e) => {
@@ -99,6 +101,19 @@ function Navbar(props) {
     navigate('/')
   }
 
+  const handleMouseOver = (e) => {
+    e.preventDefault();
+    setDropdownStyle({
+      display: "block"
+    })
+  }
+
+  const handleMouseOut = (e) => {
+    e.preventDefault();
+    setDropdownStyle({
+      display: "none"
+    })
+  }
 
 
   return (
@@ -113,9 +128,14 @@ function Navbar(props) {
           {
             localStorage.getItem("user") != null ?
               (
+                <>
                 <NavLink  style={{ textDecoration: 'none' }}>
-                  <div className='logout-btn' onClick={handleLogout}>LOGOUT</div>
+                  <div className='logout-btn' onClick={handleLogout} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>LOGOUT</div>
                 </NavLink>
+                <div className='navbar--dropdown fade-in' style={dropdownStyle}>
+
+                </div>
+                </>
               ) :
               (
                 <>

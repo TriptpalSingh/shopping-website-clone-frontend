@@ -9,22 +9,26 @@ import CartItem from './components/cart/CartItem';
 import Cart from './components/cart/Cart';
 import CartState from './context/cart/cartState';
 import Loader from './components/loader/Loader';
+import { Provider } from 'react-redux';
+import store from './state/store';
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <CartState>
-          <Routes>
-            <Route exact path='/' element={<Home/>}></Route>
-            <Route exact path='/home' element={<Home/>}></Route>
-            <Route exact path='/login' element={<Login/>}></Route>
-            <Route exact path='/addItem' element={<AddItem/>}></Route>
-            <Route exact path='/cart' element={<Cart/>}></Route>
-            <Route exact path='/signup' element={<Signup/>}></Route>
-          </Routes>
-        </CartState>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <CartState>
+            <Routes>
+              <Route exact path='/' element={<Home/>}></Route>
+              <Route exact path='/home' element={<Home/>}></Route>
+              <Route exact path='/login' element={<Login/>}></Route>
+              <Route exact path='/addItem' element={<AddItem/>}></Route>
+              <Route exact path='/cart' element={<Cart/>}></Route>
+              <Route exact path='/signup' element={<Signup/>}></Route>
+            </Routes>
+          </CartState>
+        </BrowserRouter>
+      </Provider>
     </>
   );
 }
