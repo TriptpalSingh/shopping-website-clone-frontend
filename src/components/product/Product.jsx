@@ -24,6 +24,11 @@ function Product(props) {
     const price = props.price;
 
     const handleCart = (e)=>{
+        const user = localStorage.getItem('user');
+        if(!user){
+            navigate('/login');
+            return;
+        }
         setToggleLoader(true);
         e.preventDefault();
         const userInfo = localStorage.getItem("user");

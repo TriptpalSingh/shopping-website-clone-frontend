@@ -50,6 +50,7 @@ function Signup() {
                 navigate('/login')
             }
           })  
+        // console.log(firstName, lastName, user, email, pass)
 
       }
 
