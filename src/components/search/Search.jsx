@@ -19,9 +19,9 @@ function Search(props) {
 
   useEffect(() => {
     console.log(props.list);
-      document.addEventListener('mousedown', handleMouseDown, true);
-      
-    }, []);
+    document.addEventListener('mousedown', handleMouseDown, true);
+
+  }, []);
 
   const handleMouseDown = (e)=>{
     if(searchRef.current != null && searchRef.current.value && searchRef.current.contains(e.target)){

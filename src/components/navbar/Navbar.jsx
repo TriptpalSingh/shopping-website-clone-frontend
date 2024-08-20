@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import CartContextImport from '../../context/cart/cartContext';
 import axios from 'axios';
@@ -23,7 +23,7 @@ const FullWidthOptions = (props) => {
     const userInfo = localStorage.getItem("user");
     if (userInfo != null) {
       const data = JSON.parse(userInfo);
-      // setName(data.name)
+      //setName(data.name)
       cartContext.setCart(data.cart);
     }
     else {
@@ -57,6 +57,22 @@ function Navbar(props) {
   const navigate = useNavigate();
   const [url, setUrl] = useState("");
   const [name, setName] = useState(null);
+  const logoutBtnRef= useRef();
+
+  
+//  const handleMouseDown = (e)=>{
+//    if(searchRef.current != null && searchRef.current.value && searchRef.current.contains(e.target)){
+//      setTogglePredictions(true);
+//    }
+//    else{
+//      setTogglePredictions(false);
+//    }
+//    // console.log("down");
+//  }
+
+
+
+
 
   useEffect(() => {
     const userInfo = localStorage.getItem("user");
@@ -110,9 +126,12 @@ function Navbar(props) {
 
   const handleMouseOut = (e) => {
     e.preventDefault();
-    setDropdownStyle({
-      display: "none"
-    })
+    setTimeout(() => {
+      setDropdownStyle({
+        display: "none"
+      })
+
+    }, 200);
   }
 
 
@@ -130,7 +149,7 @@ function Navbar(props) {
               (
                 <>
                 <NavLink  style={{ textDecoration: 'none' }}>
-                  <div className='logout-btn' onClick={handleLogout} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>LOGOUT</div>
+                  <div className='logout-btn' ref={logoutBtnRef} onClick={handleLogout} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>LOGOUT</div>
                 </NavLink>
                 <div className='navbar--dropdown fade-in' style={dropdownStyle}>
 
