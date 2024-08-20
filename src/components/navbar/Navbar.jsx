@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { NavLink, useNavigate } from "react-router-dom";
 import CartContextImport from '../../context/cart/cartContext';
 import axios from 'axios';
@@ -11,8 +11,6 @@ const FullWidthOptions = (props) => {
 
   const cartContext = useContext(CartContextImport);
 
-  // const [name, setName] = useState("");
-  // const [cart, setCart] = useState(null);
 
   const navActive = ({ isActive }) => {
     return {
@@ -25,7 +23,7 @@ const FullWidthOptions = (props) => {
     const userInfo = localStorage.getItem("user");
     if (userInfo != null) {
       const data = JSON.parse(userInfo);
-      // setName(data.name)
+      //setName(data.name)
       cartContext.setCart(data.cart);
     }
     else {
@@ -59,6 +57,22 @@ function Navbar(props) {
   const navigate = useNavigate();
   const [url, setUrl] = useState("");
   const [name, setName] = useState(null);
+  const logoutBtnRef= useRef();
+
+  
+//  const handleMouseDown = (e)=>{
+//    if(searchRef.current != null && searchRef.current.value && searchRef.current.contains(e.target)){
+//      setTogglePredictions(true);
+//    }
+//    else{
+//      setTogglePredictions(false);
+//    }
+//    // console.log("down");
+//  }
+
+
+
+
 
   useEffect(() => {
     const userInfo = localStorage.getItem("user");
@@ -72,6 +86,10 @@ function Navbar(props) {
         setName("login or signup")
       }
     }
+  })
+
+  const [dropdownStyle, setDropdownStyle] = useState({
+    display: "none"
   })
 
 
@@ -99,6 +117,22 @@ function Navbar(props) {
     navigate('/')
   }
 
+  const handleMouseOver = (e) => {
+    e.preventDefault();
+    setDropdownStyle({
+      display: "block"
+    })
+  }
+
+  const handleMouseOut = (e) => {
+    e.preventDefault();
+    setTimeout(() => {
+      setDropdownStyle({
+        display: "none"
+      })
+
+    }, 200);
+  }
 
 
   return (
@@ -113,9 +147,14 @@ function Navbar(props) {
           {
             localStorage.getItem("user") != null ?
               (
+                <>
                 <NavLink  style={{ textDecoration: 'none' }}>
-                  <div className='logout-btn' onClick={handleLogout}>LOGOUT</div>
+                  <div className='logout-btn' ref={logoutBtnRef} onClick={handleLogout} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>LOGOUT</div>
                 </NavLink>
+                <div className='navbar--dropdown fade-in' style={dropdownStyle}>
+
+                </div>
+                </>
               ) :
               (
                 <>
