@@ -5,7 +5,7 @@ import Predictions from '../predictions/Predictions';
 
 function Search(props) {
 
-  
+
 
 
   const [filteredList, setFilteredList] = useState(null);
@@ -23,42 +23,42 @@ function Search(props) {
 
   }, []);
 
-  const handleMouseDown = (e)=>{
-    if(searchRef.current != null && searchRef.current.value && searchRef.current.contains(e.target)){
+  const handleMouseDown = (e) => {
+    if (searchRef.current != null && searchRef.current.value && searchRef.current.contains(e.target)) {
       setTogglePredictions(true);
     }
-    else{
+    else {
       setTogglePredictions(false);
     }
     // console.log("down");
   }
 
 
-  const handleSearchClick = (e)=>{
+  const handleSearchClick = (e) => {
     // fromRef.current.value = 0;
     // toRef.current.value = 0;
     setValue(searchRef.current.value);
-    const tempList = props.list.filter((item)=>{
-      if(item.title.toLowerCase().includes(searchRef.current.value.toLowerCase())){
+    const tempList = props.list.filter((item) => {
+      if (item.title.toLowerCase().includes(searchRef.current.value.toLowerCase())) {
         return true;
       }
-      else{
+      else {
         return false;
       }
     })
-    
+
     setFilteredList(tempList);
     props.setNewList(tempList);
   }
 
-  const handleChange = (e)=>{
+  const handleChange = (e) => {
     const value = searchRef.current.value;
 
-    const tempList = props.list.filter((item)=>{
-      if(item.title.toLowerCase().includes(value.toLowerCase())){
+    const tempList = props.list.filter((item) => {
+      if (item.title.toLowerCase().includes(value.toLowerCase())) {
         return true;
       }
-      else{
+      else {
         return false;
       }
     })
@@ -67,17 +67,17 @@ function Search(props) {
     // console.log(tempList);
 
 
-    if(value && tempList.length > 0){
+    if (value && tempList.length > 0) {
       setTogglePredictions(true);
     }
-    else{
+    else {
       setTogglePredictions(false);
     }
   }
 
-  const handleCross = (e)=>{
+  const handleCross = (e) => {
     e.preventDefault();
-    if(searchRef.current != null){
+    if (searchRef.current != null) {
       searchRef.current.value = "";
       handleSearchClick(e);
     }
@@ -125,19 +125,19 @@ function Search(props) {
 
   return (
     <div className='search--outer'>
-        <div className='search--inner'>
-            <input ref={searchRef} onChange={handleChange} type='text' className='search--input'  placeholder='Search'  name='search'></input>
-            {/* <button className='search--crossBtn' onClick={handleCross}>x</button> */}
-            <button className=' search--btn' onClick={handleSearchClick}><img src='/assets/magnifying-glass.png' alt='icon' className='searchIcon'></img></button>
-        </div>
-        {/* price filter part */}
-        {/* <div className='search--filter-outer'>
+      <div className='search--inner'>
+        <input ref={searchRef} onChange={handleChange} type='text' className='search--input' placeholder='Search' name='search'></input>
+        {/* <button className='search--crossBtn' onClick={handleCross}>x</button> */}
+        <button className=' search--btn' onClick={handleSearchClick}><img src='/assets/magnifying-glass.png' alt='icon' className='searchIcon'></img></button>
+      </div>
+      {/* price filter part */}
+      {/* <div className='search--filter-outer'>
           Price From:<input ref={fromRef} className='filter--input' type='number' step={50} min={0} placeholder='0'></input> to:<input ref={toRef} className='filter--input' type='number' step={50} min={0} placeholder='0'></input>
           <button className='btn' onClick={handlePriceFilter}>Apply</button>
         </div> */}
-        {
-          togglePredictions ? <Predictions list={predictionList}/> : null
-        }
+      {
+        togglePredictions ? <Predictions list={predictionList} /> : null
+      }
     </div>
   )
 }

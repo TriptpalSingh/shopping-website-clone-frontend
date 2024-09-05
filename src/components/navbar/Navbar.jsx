@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState, useRef } from 'react'
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useRouteError } from "react-router-dom";
 import CartContextImport from '../../context/cart/cartContext';
 import axios from 'axios';
 
@@ -31,6 +31,7 @@ const FullWidthOptions = (props) => {
     }
   }, [localStorage.getItem("user")])
 
+
   return (
     <>
       <Search list={props.list} setNewList={props.setNewList} />
@@ -57,20 +58,32 @@ function Navbar(props) {
   const navigate = useNavigate();
   const [url, setUrl] = useState("");
   const [name, setName] = useState(null);
-  const logoutBtnRef= useRef();
-
-  
-//  const handleMouseDown = (e)=>{
-//    if(searchRef.current != null && searchRef.current.value && searchRef.current.contains(e.target)){
-//      setTogglePredictions(true);
-//    }
-//    else{
-//      setTogglePredictions(false);
-//    }
-//    // console.log("down");
-//  }
+  const navProfileRef = useRef();
+  const navDropdownRef = useRef();
+  const [dropdownStyle, setDropdownStyle] = useState({
+    display: "none"
+  })
+  const [toggleProfileIcon, setToggleProfileIcon] = useState(false) //if its false, it will be empty, if true, it will be filled.
 
 
+  const handleMouseDown = (e) => {
+    if (navDropdownRef.current != null && navProfileRef.current != null && (navDropdownRef.current.contains(e.target) || navProfileRef.current.contains(e.target))) {
+      setDropdownStyle({
+        display: "block"
+      })
+    }
+    else {
+      setDropdownStyle({
+        display: "none"
+      })
+    }
+  }
+
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleMouseDown, true);
+
+  }, []);
 
 
 
@@ -88,16 +101,17 @@ function Navbar(props) {
     }
   })
 
-  const [dropdownStyle, setDropdownStyle] = useState({
-    display: "none"
-  })
-
 
   const navActive = ({ isActive }) => {
     return {
       color: isActive ? "#63e2fd" : "#ffffff",
       textDecoration: "none",
     };
+  }
+
+  const handleCart = (e) => {
+    e.preventDefault();
+    navigate('/cart');
   }
 
   const handleLogout = (e) => {
@@ -107,31 +121,24 @@ function Navbar(props) {
     navigate("/");
   }
 
-  const handleAddItem = (e) => {
-    e.preventDefault();
-    navigate('/addItem')
-  }
+  //const handleAddItem = (e) => {
+  //e.preventDefault();
+  //navigate('/addItem')
+  //}
 
   const handleclick = (e) => {
     e.preventDefault();
     navigate('/')
   }
 
-  const handleMouseOver = (e) => {
+  const handleProfileMouseOver = (e) => {
     e.preventDefault();
-    setDropdownStyle({
-      display: "block"
-    })
+    setToggleProfileIcon(true);
   }
 
-  const handleMouseOut = (e) => {
+  const handleProfileMouseOut = (e) => {
     e.preventDefault();
-    setTimeout(() => {
-      setDropdownStyle({
-        display: "none"
-      })
-
-    }, 200);
+    setToggleProfileIcon(false);
   }
 
 
@@ -148,12 +155,20 @@ function Navbar(props) {
             localStorage.getItem("user") != null ?
               (
                 <>
-                <NavLink  style={{ textDecoration: 'none' }}>
-                  <div className='logout-btn' ref={logoutBtnRef} onClick={handleLogout} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>LOGOUT</div>
-                </NavLink>
-                <div className='navbar--dropdown fade-in' style={dropdownStyle}>
+                  <NavLink style={{ textDecoration: 'none' }}>
+                    <button ref={navProfileRef} className='nav-dropdown-btn' onMouseOver={handleProfileMouseOver} onMouseOut={handleProfileMouseOut} >
+                      {
+                        toggleProfileIcon ? <img src='/assets/user.png' /> : <img src='/assets/user(1).png' />
+                      }
 
-                </div>
+                    </button>
+                  </NavLink>
+                  <div ref={navDropdownRef} className='navbar--dropdown fade-in' style={dropdownStyle} >
+                    <button className='navbar--dropdown-cart' onClick={handleCart}>cart</button>
+                    <button className='navbar--dropdown-logout' onClick={handleLogout}>logout</button>
+
+                  </div>
+
                 </>
               ) :
               (
@@ -175,3 +190,17 @@ function Navbar(props) {
 }
 
 export default Navbar
+
+
+
+
+
+
+
+
+
+
+
+
+
+

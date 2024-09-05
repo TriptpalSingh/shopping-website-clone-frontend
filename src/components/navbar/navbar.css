@@ -46,7 +46,8 @@
 
 .login-btn,
 .signup-btn,
-.logout-btn {
+.logout-btn,
+.nav-dropdown-btn{
     text-decoration: none;
     flex-basis: 300px;
     margin-right: 10px;
@@ -55,14 +56,25 @@
     color: var(--my-black);
     font-weight: 500;
     cursor: pointer;
-    transition: 0.1s ease-out;
+    transition: border 50ms ease-out, transform 50ms ease-out;
+}
+
+.nav-dropdown-btn{
+  border: none;
+  background: none;
 }
 
 .login-btn:hover,
-.signup-btn:hover {
+.signup-btn:hover
+{
     border: solid 1px transparent;
     color: var(--my-yellow);
     background-color: var(--my-black);
+}
+
+.nav-dropdown-btn:hover,
+.nav-dropdown-btn:focus{
+  border-bottom: solid 2px black;
 }
 
 .logout-btn:hover,
@@ -70,6 +82,12 @@
     color: var(--my-yellow);
     background-color: var(--my-black);
 }
+
+.navbar--dropdown > button{
+  padding: 10px;
+  margin: 10px;
+}
+
 
 .profile-div {
     width: 70px;
